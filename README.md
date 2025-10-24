@@ -38,7 +38,7 @@ O objetivo é executar um conjunto de microserviços (Online Boutique) em um clu
 
 2. Durante a instalação ou na primeira execução, escolha **dockerd (moby)** como o container runtime e **habilite o Kubernetes**.
 
-![DockerD](assets/rancher-dockerd.png)
+![DockerD](https://github.com/user-attachments/assets/c8bbc2ef-91c3-4181-a39b-81f411cc174e)
 
 3. Após a instalação ser concluída, verifique se o node do seu cluster local está com o status Ready.
 
@@ -72,14 +72,14 @@ kubectl port-forward svc/argocd-server -n argocd 8080:443
 kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
 ```
 
-![Get Password](assets/getPassword.png)
+![Get Password](https://github.com/user-attachments/assets/6ccd99cb-141a-4647-b732-82ce0d7bdc49)
 
 5. Acesse a UI do ArgoCD no seu navegador: https://localhost:8080
 
 - **login:** `admin`
 - **senha:** `utilize a senha decodificada anteriormente.`
 
-![LoginPage ArgoCD](assets/argocdLogin.png)
+![LoginPage ArgoCD](https://github.com/user-attachments/assets/036e2dc0-2a3e-45a1-b5d9-8f5e1eaed706)
 
 
 ## 3. Fork e repositório GitHub
@@ -91,7 +91,7 @@ Para este projeto, usaremos a aplicação de exemplo "Online Boutique" da Google
 
 2. Crie um novo repositorio no GitHub:
 
-![new repository](assets/newRepo.png)
+![new repository](https://github.com/user-attachments/assets/e62b4d18-a7b9-4a96-9603-d2d0467c2c16)
 
 > [!IMPORTANT]
 > Para este guia, estamos usando um repositório público.
@@ -135,8 +135,8 @@ Agora, vamos instruir o ArgoCD a monitorar nosso repositório e aplicar os manif
 
 - **Namespace:** default
 
-![new app](assets/newApp.png)
-![new app 2](assets/app.png)
+![new app](https://github.com/user-attachments/assets/b243c6eb-6435-4976-8b44-f711a7755c50)
+![new app 2](https://github.com/user-attachments/assets/19f31e86-b395-4fe2-a6ab-a62d73226661)
 
 3. Clique em **CREATE**.
 
@@ -148,7 +148,7 @@ O ArgoCD irá criar a aplicação e mostrará o status **Missing** e **OutOfSync
 
 > **Nota:** O processo de sincronização pode levar alguns minutos enquanto o Kubernetes baixa as imagens dos containers e inicializa todos os pods.
 
-![synced](assets/synced.png)
+![synced](https://github.com/user-attachments/assets/ddc7847b-282d-4d1e-9f4b-d7a47d16b04f)
 
 6. Para verificar se os pods estão rodando, você pode usar o kubectl:
 
@@ -169,17 +169,17 @@ kubectl port-forward svc/frontend-external 8081:80
 
 3. Você deverá ver a página inicial da aplicação "Online Boutique".
 
-![home](assets/home.png)
-![sunglass](assets/sunglass.png)
+![home](https://github.com/user-attachments/assets/385fea57-574f-4f9e-8226-19b38db95817)
+![sunglass](https://github.com/user-attachments/assets/f3cd10b4-3dbf-4595-a52a-d63509e4129d)
 
 
 ## 6. O Fluxo GitOps em Ação (Exemplo de Scaling)
 
 Este é o conceito mais importante do GitOps. O repositório Git é a única fonte da verdade. Todas as alterações no cluster devem ser feitas através de um commit no Git, e não com comandos manuais.
 
-1. Vá até o seu **fork** do repositório no GitHub.
+1. Vá até o seu repositório no GitHub.
 
-2. Navegue até o seu manifesto online-boutique.yaml e edite-o.
+2. Navegue até o seu manifesto `online-boutique.yaml` e edite-o.
 
 3. Procure pelo `Deployment` chamado `frontend`, e altere o campo replicas de `1` para `3`.
 
@@ -192,7 +192,7 @@ spec:
   replicas: 3  # Alterado de 1 para 3
 ```
 
-![replicas](assets/replicas.png)
+![replicas](https://github.com/user-attachments/assets/d4934ac3-1643-4566-8138-42ccf68b03e1)
 
 4. Faça o commit da alteração diretamente no GitHub.
 
@@ -204,7 +204,7 @@ spec:
 kubectl get deployments
 ```
 
-![replica result](assets/replicaResult.png)
+![replica result](https://github.com/user-attachments/assets/817982bd-3b33-4c3e-9772-c56094699b8d)
 
 
 ## 7. Desafio extra: Conectar a um Repositório Privado 
@@ -213,7 +213,7 @@ Para que o ArgoCD possa ler um repositório Git privado, você precisa fornecer 
 
 1. No GitHub:
 - Acesse Settings > Developer settings > Personal access tokens > Tokens (classic)
-![GitHub token](assets/githubToken.png) 
+![GitHub token](https://github.com/user-attachments/assets/ff2cc968-3e9c-4eb6-8004-24fa6cad03ee) 
 
 - Clique em Generate new token.
 - Dê um nome (ex: argocd-token) e marque a permissão repo (Controle total de repositórios privados).
@@ -223,17 +223,17 @@ Para que o ArgoCD possa ler um repositório Git privado, você precisa fornecer 
 - Navegue até Settings > Repositories.
 - Clique em CONNECT REPO.
 
-![Connect repo](assets/argocdConnect.png) 
+![Connect repo](https://github.com/user-attachments/assets/612fb51c-a512-4cfd-8c13-2466e0e10a47) 
 
 - Preencha os campos com as informações do seu repositório privado:
 
-![private Repo](assets/privateRepo.png)
+![private Repo](https://github.com/user-attachments/assets/62a366a4-0a95-400f-aea3-af5384fd931e)
 - Clique em CONNECT.
 
 3. Resultado
 
 - Se tudo estiver correto, você verá a conexão com o status Successful. Agora você pode criar aplicações usando este repositório privado.
-![Connect Result](assets/connectResult.png)
+![Connect Result](https://github.com/user-attachments/assets/c8ed803e-9149-4077-a866-62c0bb451300)
 
 
 ## 8. Referências
